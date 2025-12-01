@@ -1,0 +1,28 @@
+
+> sakai-ng@20.0.0 start
+> ng serve
+
+❯ Building...
+✔ Building...
+Initial chunk files | Names               |  Raw size
+styles.css          | styles              |  95.91 kB | 
+main.js             | main                |  59.98 kB | 
+chunk-VZU6HK3P.js   | -                   |  27.84 kB | 
+chunk-CZJLB7T5.js   | -                   |   1.08 kB | 
+polyfills.js        | polyfills           |  95 bytes | 
+
+                    | Initial total       | 184.90 kB
+
+Lazy chunk files    | Names               |  Raw size
+chunk-FOHC3DQU.js   | risk-matrix         |  52.04 kB | 
+chunk-5VH432CX.js   | risk-identification |  40.70 kB | 
+chunk-LDFGYPWU.js   | -                   |  20.62 kB | 
+chunk-TO5E34CQ.js   | auth-routes         |  18.89 kB | 
+chunk-MQAXLQXT.js   | login               | 140 bytes | 
+
+Application bundle generation complete. [1.297 seconds]
+
+Watch mode enabled. Watching for file changes...
+NOTE: Raw file sizes do not reflect development server per-request transformations.
+  ➜  Local:   http://localhost:4200/
+  ➜  press h + enter to show help

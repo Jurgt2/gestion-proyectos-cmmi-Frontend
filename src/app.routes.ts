@@ -1,23 +1,27 @@
 import { Routes } from '@angular/router';
 import { AppLayout } from './app/layout/component/app.layout';
-import { Dashboard } from './app/pages/dashboard/dashboard';
-import { Documentation } from './app/pages/documentation/documentation';
-import { Landing } from './app/pages/landing/landing';
-import { Notfound } from './app/pages/notfound/notfound';
 
 export const appRoutes: Routes = [
     {
         path: '',
         component: AppLayout,
         children: [
-            { path: '', component: Dashboard },
-            { path: 'uikit', loadChildren: () => import('./app/pages/uikit/uikit.routes') },
-            { path: 'documentation', component: Documentation },
-            { path: 'pages', loadChildren: () => import('./app/pages/pages.routes') }
+            { 
+                path: '', 
+                redirectTo: 'riesgos',
+                pathMatch: 'full'
+            },
+            { 
+                path: 'riesgos', 
+                loadComponent: () => import('./app/risk-matrix/risk-matrix').then(m => m.RiskMatrix)
+            },
+            { 
+                path: 'identificacion-riesgos', 
+                loadComponent: () => import('./app/risk-identification/risk-identification').then(m => m.RiskIdentificationComponent)
+            }
         ]
     },
-    { path: 'landing', component: Landing },
-    { path: 'notfound', component: Notfound },
+    { path: 'login', loadComponent: () => import('./app/auth/login/login').then(m => m.Login) },
     { path: 'auth', loadChildren: () => import('./app/pages/auth/auth.routes') },
-    { path: '**', redirectTo: '/notfound' }
+    { path: '**', redirectTo: '/riesgos' }
 ];

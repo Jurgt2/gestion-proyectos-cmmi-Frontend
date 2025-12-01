@@ -1,0 +1,12 @@
+.p-field {
+  margin-bottom: 1rem;
+}
+
+.p-error {
+  color: #f44336;
+  font-size: 0.9em;
+}
+
+:host ::ng-deep .p-table {
+  margin-top: 2rem;
+}

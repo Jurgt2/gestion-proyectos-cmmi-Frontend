@@ -1,0 +1,41 @@
+<h2>Listado de Riesgos</h2>
+<form (ngSubmit)="guardarRiesgo()">
+  <label>Descripción</label>
+  <input type="text" [(ngModel)]="riesgo.descripcion" name="descripcion" required />
+  <label>Probabilidad</label>
+  <input type="text" [(ngModel)]="riesgo.probabilidad" name="probabilidad" required />
+  <label>Impacto</label>
+  <input type="text" [(ngModel)]="riesgo.impacto" name="impacto" required />
+  <label>Estado</label>
+  <input type="text" [(ngModel)]="riesgo.estado" name="estado" required />
+  <label>Categoría</label>
+  <input type="text" [(ngModel)]="riesgo.categoria" name="categoria" required />
+  <button type="submit">Guardar</button>
+</form>
+<div *ngIf="mensaje">{{ mensaje }}</div>
+
+<!-- Botones de exportación -->
+<button (click)="exportarExcel()">Exportar a Excel</button>
+<button (click)="exportarPDF()">Exportar a PDF</button>
+
+<!-- Tabla de riesgos (simulada) -->
+<table>
+  <thead>
+    <tr>
+      <th>Descripción</th>
+      <th>Probabilidad</th>
+      <th>Impacto</th>
+      <th>Estado</th>
+      <th>Categoría</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let r of riesgos">
+      <td>{{ r.descripcion }}</td>
+      <td>{{ r.probabilidad }}</td>
+      <td>{{ r.impacto }}</td>
+      <td>{{ r.estado }}</td>
+      <td>{{ r.categoria }}</td>
+    </tr>
+  </tbody>
+</table>

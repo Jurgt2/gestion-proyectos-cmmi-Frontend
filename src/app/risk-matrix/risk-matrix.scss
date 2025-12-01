@@ -1,0 +1,517 @@
+.risk-matrix-excel-template {
+  background: #fff;
+  padding: 24px 32px;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: 'Arial', sans-serif;
+}
+
+// Header con Logo, Título y Botones
+.rmx-header-section {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  gap: 20px;
+}
+
+.rmx-logo {
+  height: 70px;
+  width: auto;
+  flex-shrink: 0;
+}
+
+.rmx-title-container {
+  flex: 1;
+  text-align: center;
+}
+
+.rmx-main-title {
+  color: #2c5282;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0 0 8px 0;
+  letter-spacing: 0.5px;
+}
+
+.rmx-subtitle {
+  background: #ffd93d;
+  color: #000;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 6px 20px;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.export-buttons-top {
+  display: flex;
+  gap: 10px;
+  flex-direction: row; /* Cambiar a disposición horizontal */
+  align-items: center; /* Alinear los botones al centro verticalmente */
+  justify-content: flex-start; /* Alinear los botones al lado izquierdo */
+}
+
+.btn-excel, .btn-pdf {
+  border: none;
+  border-radius: 6px;
+  padding: 10px 16px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.btn-save {
+  background: #3b82f6;
+  color: #fff;
+  &:hover { background: #2563eb; }
+  &:disabled {
+    background: #94a3b8;
+    cursor: not-allowed;
+  }
+}
+
+.btn-excel {
+  background: #22c55e;
+  color: #fff;
+  &:hover { background: #16a34a; }
+}
+
+.btn-pdf {
+  background: #ef4444;
+  color: #fff;
+  &:hover { background: #dc2626; }
+}
+
+.btn-custom {
+  background: #fbbf24;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 16px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+
+  &:hover {
+    background: #f59e0b;
+  }
+}
+
+.save-message {
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 8px 12px;
+  border-radius: 4px;
+  background: #f0f9ff;
+  color: #1e40af;
+}
+
+// Tarjetas de Estadísticas
+.stats-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin: 24px 0;
+}
+
+.stat-card {
+  background: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  border-left: 5px solid;
+}
+
+.blue-card { border-left-color: #3b82f6; }
+.red-card { border-left-color: #ef4444; }
+.green-card { border-left-color: #22c55e; }
+.cyan-card { border-left-color: #06b6d4; }
+
+.stat-label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #334155;
+  margin-bottom: 2px;
+}
+
+.stat-subtitle {
+  font-size: 0.85rem;
+  color: #64748b;
+  margin-bottom: 12px;
+}
+
+.stat-number {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.stat-number-input {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #1e293b;
+  border: 2px dashed transparent;
+  background: transparent;
+  width: 100%;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px;
+  transition: all 0.2s;
+  
+  &:hover {
+    border-color: #cbd5e1;
+    background: #f8fafc;
+  }
+  
+  &:focus {
+    outline: none;
+    border-color: #3b82f6;
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  }
+  
+  // Ocultar flechas de input number
+  &::-webkit-inner-spin-button,
+  &::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+// Información del Proyecto
+.project-info-section {
+  margin: 24px 0;
+}
+
+.project-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 2px solid #2563eb;
+}
+
+.label-cell {
+  background: #2563eb;
+  color: #fff;
+  font-weight: 700;
+  padding: 12px 16px;
+  width: 15%;
+  border: 1px solid #1e40af;
+  font-size: 0.95rem;
+}
+
+.value-cell {
+  background: #fff;
+  padding: 8px 12px;
+  border: 1px solid #cbd5e1;
+  font-size: 0.95rem;
+  color: #1e293b;
+  font-weight: 500;
+}
+
+.editable-input {
+  width: 100%;
+  border: none;
+  background: transparent;
+  padding: 4px;
+  font-size: 0.95rem;
+  color: #1e293b;
+  font-weight: 500;
+  outline: none;
+  &:focus {
+    background: #f0f9ff;
+    border-bottom: 2px solid #3b82f6;
+  }
+}
+
+.table-input {
+  width: 100%;
+  border: none;
+  background: transparent;
+  padding: 4px 6px;
+  font-size: 0.9rem;
+  color: #475569;
+  outline: none;
+  &:focus {
+    background: #f0f9ff;
+    border-bottom: 2px solid #3b82f6;
+  }
+}
+
+.dates-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.date-input {
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  padding: 6px 10px;
+  font-size: 0.9rem;
+  flex: 1;
+  transition: all 0.2s;
+  
+  &:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  }
+}
+
+.editable-input {
+  width: 100%;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  padding: 8px 10px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  background: transparent;
+  transition: all 0.2s;
+  
+  &:hover {
+    border-color: #cbd5e1;
+    background: #f8fafc;
+  }
+  
+  &:focus {
+    outline: none;
+    border-color: #3b82f6;
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  }
+  
+  &::placeholder {
+    color: #cbd5e1;
+  }
+}
+
+.date-separator {
+  font-weight: 700;
+  color: #64748b;
+}
+
+// Control de Cambios y Otras Secciones
+.control-changes-section,
+.risks-list-section {
+  margin: 24px 0;
+}
+
+.section-header {
+  background: #2563eb;
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.05rem;
+  padding: 10px 16px;
+  border-radius: 6px 6px 0 0;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.btn-add-row {
+  background: #22c55e;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  
+  &:hover {
+    background: #16a34a;
+    transform: scale(1.05);
+  }
+}
+
+.rmx-control-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 2px solid #cbd5e1;
+  margin-top: 0;
+}
+
+.rmx-control-table th {
+  background: #3b82f6;
+  color: #fff;
+  font-weight: 600;
+  padding: 12px 10px;
+  text-align: left;
+  font-size: 0.95rem;
+  border: 1px solid #2563eb;
+}
+
+.rmx-control-table td {
+  padding: 12px 10px;
+  border: 1px solid #cbd5e1;
+  font-size: 0.9rem;
+  color: #475569;
+  min-height: 40px;
+}
+
+.rmx-control-table tbody tr:nth-child(even) {
+  background: #f8fafc;
+}
+
+.rmx-control-table tbody tr:nth-child(odd) {
+  background: #fff;
+}
+
+// Inputs de tabla
+.table-input {
+  width: 100%;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  padding: 6px 8px;
+  font-size: 0.9rem;
+  font-family: inherit;
+  background: transparent;
+  transition: all 0.2s;
+  
+  &:focus {
+    outline: none;
+    border-color: #3b82f6;
+    background: #fff;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+  }
+  
+  &::placeholder {
+    color: #cbd5e1;
+  }
+}
+
+.table-date {
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+// Botones de acción en filas
+.action-cell {
+  text-align: center;
+  white-space: nowrap;
+}
+
+.btn-save-row,
+.btn-delete-row {
+  border: none;
+  border-radius: 4px;
+  padding: 6px 10px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin: 0 3px;
+  
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+.btn-save-row {
+  background: #3b82f6;
+  color: #fff;
+  
+  &:hover {
+    background: #2563eb;
+  }
+}
+
+.btn-delete-row {
+  background: #ef4444;
+  color: #fff;
+  
+  &:hover {
+    background: #dc2626;
+  }
+}
+
+// Listado de Riesgos
+.risks-placeholder {
+  border: 2px solid #cbd5e1;
+  border-top: none;
+  padding: 30px 20px;
+  background: #f8fafc;
+  text-align: center;
+  color: #64748b;
+  font-style: italic;
+}
+
+// Dashboard Section
+.dashboard-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 16px;
+  background: #f8fafc;
+  border: 2px solid #cbd5e1;
+  border-radius: 8px;
+  margin-top: 24px;
+}
+
+.dashboard-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.btn-dashboard {
+  background: #22c55e;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 16px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+
+  &:hover {
+    background: #16a34a;
+  }
+}
+
+// Responsive
+@media (max-width: 900px) {
+  .rmx-header-section {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .export-buttons-top {
+    flex-direction: row;
+  }
+  
+  .stats-cards {
+    grid-template-columns: 1fr;
+  }
+  
+  .project-table {
+    font-size: 0.85rem;
+  }
+  
+  .label-cell, .value-cell {
+    display: block;
+    width: 100%;
+  }
+}

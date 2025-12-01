@@ -1,0 +1,116 @@
+
+<p-toast></p-toast>
+<div class="risk-matrix-excel-template">
+  <div class="rmx-header-section">
+  <img src="assets/images/mi-logo/logo.png" alt="Logo Quality & Knowledge" class="rmx-logo" />
+    <div class="rmx-title-container">
+      <h1 class="rmx-main-title">MATRIZ DE RIESGOS</h1>
+      <div class="rmx-subtitle">Control de Cambios</div>
+    </div>
+    <div class="export-buttons-top">
+      <button class="btn-save" (click)="saveMatrix()" [disabled]="isSaving">
+        <span>💾</span> {{ isSaving ? 'Guardando...' : 'Guardar' }}
+      </button>
+      <button class="btn-excel" (click)="exportExcel()">
+        <span>📊</span> Exportar Excel
+      </button>
+      <button class="btn-pdf" (click)="exportPDF()">
+        <span>📄</span> Exportar PDF
+      </button>
+      <span class="save-message" *ngIf="saveMessage">{{ saveMessage }}</span>
+    </div>
+  </div>
+
+  <div class="excel-matrix-section">
+    <table class="excel-matrix-table">
+      <tr>
+        <td class="label-cell">Nombre del Proyecto/Aplicativo:</td>
+        <td class="value-cell">
+          <input *ngIf="matrixData" type="text" class="editable-input" [(ngModel)]="matrixData.proyecto" placeholder="Nombre del Proyecto" />
+        </td>
+        <td class="label-cell">Clave del Proyecto:</td>
+        <td class="value-cell">
+          <input *ngIf="matrixData" type="text" class="editable-input" [(ngModel)]="matrixData.clave" placeholder="PRJ-001" />
+        </td>
+      </tr>
+      <tr>
+        <td class="label-cell">Fecha de creación:</td>
+        <td class="value-cell">
+          <input *ngIf="matrixData" type="date" class="date-input" [(ngModel)]="matrixData.fechaInicio" />
+        </td>
+        <td class="label-cell">Última actualización:</td>
+        <td class="value-cell">
+          <input *ngIf="matrixData" type="date" class="date-input" [(ngModel)]="matrixData.fechaFin" />
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="control-changes-section">
+    <div class="section-header">
+      <b>Control de Cambios</b>
+      <button class="btn-add-row" (click)="addControlCambio()" title="Agregar nueva fila">
+        ➕ Agregar Fila
+      </button>
+    </div>
+    <table class="rmx-control-table">
+      <thead>
+        <tr>
+          <th>Versión</th>
+          <th>Fecha</th>
+          <th>Descripción</th>
+          <th>Autor</th>
+          <th>Aprobó</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let cambio of matrixData?.controlCambios; let i = index">
+          <td><input type="text" class="table-input" [(ngModel)]="cambio.version" placeholder="1.0" /></td>
+          <td><input type="date" class="table-input table-date" [(ngModel)]="cambio.fecha" /></td>
+          <td><input type="text" class="table-input" [(ngModel)]="cambio.descripcion" placeholder="Descripción del cambio" /></td>
+          <td><input type="text" class="table-input" [(ngModel)]="cambio.autor" placeholder="Nombre Autor" /></td>
+          <td><input type="text" class="table-input" [(ngModel)]="cambio.aprobo" placeholder="Nombre Aprobador" /></td>
+          <td class="action-cell">
+            <button class="btn-save-row" (click)="saveControlCambio(i)" title="Guardar cambios">
+              💾
+            </button>
+            <button class="btn-delete-row" (click)="deleteControlCambio(i)" title="Eliminar fila">
+              🗑️
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="stats-cards">
+    <div class="stat-card blue-card">
+      <div class="stat-label">Total de Riesgos</div>
+      <div class="stat-subtitle">Total identificados</div>
+      <input *ngIf="matrixData" type="number" [(ngModel)]="matrixData.totalRiesgos" class="stat-number-input" min="0" />
+    </div>
+    <div class="stat-card red-card">
+      <div class="stat-label">Críticos</div>
+      <div class="stat-subtitle">Sin mitigar</div>
+      <input *ngIf="matrixData" type="number" [(ngModel)]="matrixData.criticos" class="stat-number-input" min="0" />
+    </div>
+    <div class="stat-card green-card">
+      <div class="stat-label">Mitigados</div>
+      <div class="stat-subtitle">Controlados</div>
+      <input *ngIf="matrixData" type="number" [(ngModel)]="matrixData.mitigados" class="stat-number-input" min="0" />
+    </div>
+    <div class="stat-card cyan-card">
+      <div class="stat-label">Cambios Recientes</div>
+      <div class="stat-subtitle">Últimos 30 días</div>
+      <input *ngIf="matrixData" type="number" [(ngModel)]="matrixData.cambiosRecientes" class="stat-number-input" min="0" />
+    </div>
+  </div>
+
+  <div class="risks-list-section">
+    <div class="section-header">Listado Completo de Riesgos</div>
+    <div class="risks-placeholder">
+      <p>Aquí se mostrará el listado detallado de riesgos identificados...</p>
+    </div>
+  </div>
+</div>

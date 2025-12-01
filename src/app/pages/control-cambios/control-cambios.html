@@ -1,0 +1,41 @@
+<h2>Control de Cambios</h2>
+<form (ngSubmit)="guardarCambio()">
+  <label>Versión</label>
+  <input type="text" [(ngModel)]="cambio.version" name="version" required />
+  <label>Fecha</label>
+  <input type="date" [(ngModel)]="cambio.fecha" name="fecha" required />
+  <label>Descripción</label>
+  <input type="text" [(ngModel)]="cambio.descripcion" name="descripcion" required />
+  <label>Autor</label>
+  <input type="text" [(ngModel)]="cambio.autor" name="autor" required />
+  <label>Aprobó</label>
+  <input type="text" [(ngModel)]="cambio.aprobo" name="aprobo" required />
+  <button type="submit">Guardar</button>
+</form>
+<div *ngIf="mensaje">{{ mensaje }}</div>
+
+<!-- Botones de exportación -->
+<button (click)="exportarExcel()">Exportar a Excel</button>
+<button (click)="exportarPDF()">Exportar a PDF</button>
+
+<!-- Tabla de cambios (simulada) -->
+<table>
+  <thead>
+    <tr>
+      <th>Versión</th>
+      <th>Fecha</th>
+      <th>Descripción</th>
+      <th>Autor</th>
+      <th>Aprobó</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{ cambio.version }}</td>
+      <td>{{ cambio.fecha }}</td>
+      <td>{{ cambio.descripcion }}</td>
+      <td>{{ cambio.autor }}</td>
+      <td>{{ cambio.aprobo }}</td>
+    </tr>
+  </tbody>
+</table>

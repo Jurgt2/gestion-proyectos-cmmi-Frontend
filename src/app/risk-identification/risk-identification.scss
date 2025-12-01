@@ -1,0 +1,304 @@
+.risk-identification-container {
+  background: #fff;
+  padding: 15px;
+  margin: 0 auto;
+  font-family: 'Arial', sans-serif;
+  overflow-x: auto;
+}
+
+// Header Section
+.risk-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #1e3a5f;
+  gap: 15px;
+}
+
+.logo-section {
+  flex-shrink: 0;
+}
+
+.logo-placeholder {
+  width: 70px;
+  height: 55px;
+  background: linear-gradient(135deg, #1e3a5f, #2563eb);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.1rem;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.title-section {
+  flex: 1;
+  text-align: center;
+}
+
+.main-title {
+  color: #1e3a5f;
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: 0.3px;
+}
+
+.actions-section {
+  display: flex;
+  gap: 10px;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+}
+
+.btn-save, .btn-excel, .btn-pdf, .btn-add {
+  border: none;
+  border-radius: 6px;
+  padding: 10px 16px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  color: #fff;
+}
+
+.btn-save {
+  background: #3b82f6;
+  &:hover { background: #2563eb; }
+}
+
+.btn-excel {
+  background: #22c55e;
+  &:hover { background: #16a34a; }
+}
+
+.btn-pdf {
+  background: #ef4444;
+  &:hover { background: #dc2626; }
+}
+
+.btn-add {
+  background: #8b5cf6;
+  &:hover { background: #7c3aed; }
+}
+
+// Tabla de Riesgos
+.risks-table-wrapper {
+  overflow-x: auto;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+
+.risks-table {
+  width: max-content;
+  min-width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  font-size: 0.8rem;
+}
+
+.risks-table thead {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+// Headers de sección (3 secciones principales)
+.section-header {
+  padding: 8px 10px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+  border: 1px solid #1e293b;
+  color: #fff;
+}
+
+.section-identificacion {
+  background: #1e3a5f;
+}
+
+.section-cualitativo {
+  background: #2563eb;
+}
+
+.section-monitoreo {
+  background: #3b82f6;
+}
+
+// Headers de columnas
+.risks-table th {
+  padding: 10px 8px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 0.8rem;
+  border: 1px solid #cbd5e1;
+  background: #e0e7ff;
+  color: #1e3a5f;
+  white-space: nowrap;
+}
+
+.col-id { width: 80px; }
+.col-tipo { width: 100px; }
+.col-proyecto { width: 100px; }
+.col-categoria { width: 100px; }
+.col-descripcion { width: 250px; }
+.col-impacto { width: 110px; }
+.col-oportunidades { width: 200px; }
+.col-evaluacion { width: 120px; }
+.col-estrategia { width: 200px; }
+.col-responsable { width: 120px; }
+.col-estado { width: 100px; }
+.col-fecha { width: 110px; }
+.col-escalado { width: 100px; }
+.col-verificacion { width: 130px; }
+.col-actions { width: 80px; text-align: center; }
+
+.risks-table tbody tr {
+  border-bottom: 1px solid #e2e8f0;
+  transition: background 0.1s;
+  
+  &:hover {
+    background: #eff6ff !important;
+  }
+}
+
+.row-even {
+  background: #dbeafe;
+}
+
+.row-odd {
+  background: #fff;
+}
+
+.risks-table td {
+  padding: 6px 8px;
+  border: 1px solid #cbd5e1;
+  vertical-align: middle;
+}
+
+.cell-id {
+  font-weight: 600;
+  color: #1e3a5f;
+  background: #f1f5f9;
+  text-align: center;
+  font-size: 0.85rem;
+}
+
+.input-cell {
+  width: 100%;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  padding: 5px 8px;
+  font-size: 0.8rem;
+  font-family: inherit;
+  background: transparent;
+  transition: all 0.15s;
+  
+  &:focus {
+    outline: none;
+    border-color: #3b82f6;
+    background: #fff;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.15);
+  }
+  
+  &::placeholder {
+    color: #cbd5e1;
+    font-size: 0.75rem;
+  }
+}
+
+.input-wide {
+  min-width: 180px;
+}
+
+.input-date {
+  font-size: 0.75rem;
+  padding: 4px 6px;
+}
+
+.cell-actions {
+  text-align: center;
+}
+
+.btn-delete {
+  background: transparent;
+  border: 1px solid #ef4444;
+  color: #ef4444;
+  border-radius: 4px;
+  padding: 6px 10px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.2s;
+  
+  &:hover {
+    background: #ef4444;
+    color: #fff;
+    transform: scale(1.05);
+  }
+}
+
+// Footer Info
+.footer-info {
+  margin-top: 20px;
+  padding: 15px;
+  background: #f8fafc;
+  border-radius: 6px;
+  border-left: 4px solid #3b82f6;
+  
+  p {
+    margin: 0;
+    color: #475569;
+    font-size: 0.95rem;
+    
+    strong {
+      color: #1e293b;
+      font-size: 1.1rem;
+    }
+  }
+}
+
+// Responsive
+@media (max-width: 1200px) {
+  .risk-header {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .actions-section {
+    justify-content: center;
+  }
+  
+  .risks-table {
+    font-size: 0.85rem;
+  }
+  
+  .risks-table th,
+  .risks-table td {
+    padding: 8px 6px;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-title {
+    font-size: 1.4rem;
+  }
+  
+  .actions-section {
+    flex-direction: column;
+    width: 100%;
+    
+    button {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+}

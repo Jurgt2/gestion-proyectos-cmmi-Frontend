@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { RouterModule } from '@angular/router';
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { StyleClassModule } from 'primeng/styleclass';
 import { AppConfigurator } from './app.configurator';
@@ -63,30 +64,51 @@ import { LayoutService } from '../service/layout.service';
             </button>
 
             <div class="layout-topbar-menu hidden lg:block">
-                <div class="layout-topbar-menu-content">
-                    <button type="button" class="layout-topbar-action">
-                        <i class="pi pi-calendar"></i>
-                        <span>Calendar</span>
-                    </button>
-                    <button type="button" class="layout-topbar-action">
-                        <i class="pi pi-inbox"></i>
-                        <span>Messages</span>
-                    </button>
-                    <button type="button" class="layout-topbar-action">
-                        <i class="pi pi-user"></i>
-                        <span>Profile</span>
-                    </button>
-                </div>
+                                <div class="layout-topbar-menu-content">
+                                    <button type="button" class="layout-topbar-action">
+                                        <i class="pi pi-calendar"></i>
+                                        <span>Calendar</span>
+                                    </button>
+                                    <button type="button" class="layout-topbar-action">
+                                        <i class="pi pi-inbox"></i>
+                                        <span>Messages</span>
+                                    </button>
+                                    <div class="relative inline-block">
+                                        <button type="button" class="layout-topbar-action" (click)="toggleProfileMenu = !toggleProfileMenu" pStyleClass="@next" [hideOnOutsideClick]="true">
+                                            <i class="pi pi-user"></i>
+                                            <span>Profile</span>
+                                        </button>
+                                        <!-- Dropdown with logout (shown only when toggleProfileMenu true) -->
+                                        <div *ngIf="toggleProfileMenu" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-50">
+                                            <button class="w-full text-left px-4 py-2 hover:bg-gray-100" (click)="logout(); toggleProfileMenu = false;">
+                                                Cerrar sesión
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
             </div>
         </div>
     </div>`
 })
 export class AppTopbar {
     items!: MenuItem[];
+    toggleProfileMenu = false;
 
-    constructor(public layoutService: LayoutService) {}
+    constructor(public layoutService: LayoutService, private router: Router) {}
 
     toggleDarkMode() {
         this.layoutService.layoutConfig.update((state) => ({ ...state, darkTheme: !state.darkTheme }));
+    }
+
+    logout() {
+        // Clear authentication tokens and redirect to login
+        try {
+            localStorage.removeItem('jwt_token');
+            localStorage.removeItem('token');
+            localStorage.removeItem('username');
+        } catch (e) {
+            console.warn('Error clearing localStorage', e);
+        }
+        this.router.navigate(['/auth/login']);
     }
 }

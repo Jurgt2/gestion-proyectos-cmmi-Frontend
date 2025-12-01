@@ -1,0 +1,99 @@
+<div class="risk-identification-container">
+  <!-- Header con Logo y Título -->
+  <div class="risk-header">
+    <div class="logo-section">
+      <div class="logo-placeholder">Q&K</div>
+    </div>
+    <div class="title-section">
+      <h1 class="main-title">MATRIZ DE RIESGOS Y OPORTUNIDADES DEL PORTAFOLIO DE PROYECTOS DE Q&K</h1>
+    </div>
+    <div class="actions-section">
+      <button class="btn-save" (click)="saveData()">
+        <span>💾</span> Guardar
+      </button>
+      <button class="btn-excel" (click)="exportExcel()">
+        <span>📊</span> Excel
+      </button>
+      <button class="btn-pdf" (click)="exportPDF()">
+        <span>📄</span> PDF
+      </button>
+      <button class="btn-add" (click)="addRisk()">
+        <span>➕</span> Agregar
+      </button>
+    </div>
+  </div>
+
+  <!-- Tabla de Riesgos Completa -->
+  <div class="risks-table-wrapper">
+    <table class="risks-table">
+      <thead>
+        <tr>
+          <!-- Identificación y Análisis de Riesgos -->
+          <th colspan="5" class="section-header section-identificacion">Identificación y Análisis de Riesgos</th>
+          <!-- Análisis Cualitativo -->
+          <th colspan="2" class="section-header section-cualitativo">Análisis Cualitativo</th>
+          <!-- Monitoreo de Riesgos -->
+          <th colspan="8" class="section-header section-monitoreo">Monitoreo de Riesgos</th>
+          <!-- Acciones -->
+          <th rowspan="2" class="col-actions">Acciones</th>
+        </tr>
+        <tr>
+          <!-- Identificación -->
+          <th class="col-id">ID</th>
+          <th class="col-tipo">Tipo</th>
+          <th class="col-proyecto">ID de Proyecto</th>
+          <th class="col-categoria">Categoría</th>
+          <th class="col-descripcion">Descripción del Riesgo</th>
+          
+          <!-- Análisis Cualitativo -->
+          <th class="col-impacto">Nivel de Impacto</th>
+          <th class="col-oportunidades">Oportunidades</th>
+          
+          <!-- Monitoreo -->
+          <th class="col-evaluacion">Evaluación de Riesgo</th>
+          <th class="col-estrategia">Estrategia del Riesgo</th>
+          <th class="col-responsable">Responsable</th>
+          <th class="col-estado">Estado</th>
+          <th class="col-fecha">Fecha Inicio</th>
+          <th class="col-fecha">Fecha Cierre</th>
+          <th class="col-escalado">Escalado</th>
+          <th class="col-verificacion">Siguiente verificación</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let risk of risks; let i = index" [class.row-even]="i % 2 === 0" [class.row-odd]="i % 2 !== 0">
+          <!-- Identificación -->
+          <td class="cell-id">{{ risk.id }}</td>
+          <td><input type="text" [(ngModel)]="risk.tipo" class="input-cell" placeholder="Tipo" /></td>
+          <td><input type="text" [(ngModel)]="risk.idProyecto" class="input-cell" placeholder="ID" /></td>
+          <td><input type="text" [(ngModel)]="risk.categoria" class="input-cell" placeholder="Categoría" /></td>
+          <td><input type="text" [(ngModel)]="risk.descripcion" class="input-cell input-wide" placeholder="Descripción..." /></td>
+          
+          <!-- Análisis Cualitativo -->
+          <td><input type="text" [(ngModel)]="risk.nivelImpacto" class="input-cell" placeholder="Nivel" /></td>
+          <td><input type="text" [(ngModel)]="risk.oportunidades" class="input-cell input-wide" placeholder="Oportunidades..." /></td>
+          
+          <!-- Monitoreo -->
+          <td><input type="text" [(ngModel)]="risk.evaluacionRiesgo" class="input-cell" placeholder="Evaluación" /></td>
+          <td><input type="text" [(ngModel)]="risk.estrategiaRiesgo" class="input-cell input-wide" placeholder="Estrategia..." /></td>
+          <td><input type="text" [(ngModel)]="risk.responsable" class="input-cell" placeholder="Responsable" /></td>
+          <td><input type="text" [(ngModel)]="risk.estado" class="input-cell" placeholder="Estado" /></td>
+          <td><input type="date" [(ngModel)]="risk.fechaInicio" class="input-cell input-date" /></td>
+          <td><input type="date" [(ngModel)]="risk.fechaCierre" class="input-cell input-date" /></td>
+          <td><input type="text" [(ngModel)]="risk.escalado" class="input-cell" placeholder="Escalado" /></td>
+          <td><input type="date" [(ngModel)]="risk.siguienteVerificacion" class="input-cell input-date" /></td>
+          
+          <!-- Acciones -->
+          <td class="cell-actions">
+            <button class="btn-delete" (click)="deleteRisk(i)" title="Eliminar fila">🗑️</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Footer Info -->
+  <div class="footer-info">
+    <p>Total de riesgos registrados: <strong>{{ risks.length }}</strong></p>
+  </div>
+</div>

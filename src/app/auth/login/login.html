@@ -1,1 +1,31 @@
-<p>login works!</p>
+<div class="auth-page">
+  <div class="auth-center">
+    <div class="card-wrap">
+      <div class="card-top"></div>
+      <div class="card-body">
+        <div class="logo-circle"></div>
+        <h1 class="title">Bienvenido</h1>
+        <p class="subtitle">Inicia sesión para continuar</p>
+
+        <form class="login-form" (ngSubmit)="login()">
+          <label class="label">Correo electrónico</label>
+          <input type="email" name="email" [(ngModel)]="email" placeholder="correo@ejemplo.com" class="input" />
+
+          <label class="label">Contraseña</label>
+          <input type="password" name="password" [(ngModel)]="password" placeholder="Contraseña" class="input" />
+
+          <div class="row-between">
+            <label class="checkbox"><input type="checkbox" [(ngModel)]="rememberMe" name="remember" /> Recordarme</label>
+      <a class="forgot" (click)="forgotPassword()">¿Olvidaste tu contraseña?</a>
+          </div>
+
+          <button type="submit" class="btn-primary" [disabled]="cargando">Iniciar sesión</button>
+
+          <button type="button" class="btn-ghost" (click)="register()">Crear cuenta</button>
+        </form>
+
+        <div class="message" *ngIf="mensaje">{{ mensaje }}</div>
+      </div>
+    </div>
+  </div>
+</div>
