@@ -11,12 +11,13 @@ import { UsuarioService, LoginResponse } from '../../services/usuario.service';
   styleUrls: ['./login.scss']
 })
 export class Login implements OnInit {
+  name: string = '';
   email: string = '';
   password: string = '';
   mensaje: string = '';
   cargando: boolean = false;
   usuarios: any[] = [];
-  rememberMe: boolean = false;
+  agreeTerms: boolean = false;
 
   showRiskMatrix: boolean = false;
 
@@ -61,10 +62,9 @@ export class Login implements OnInit {
 
         if (response.success) {
           this.mensaje = '✅ Inicio de sesión correcto';
-          // si no guardas en localStorage por defecto, usar rememberMe
-          if (this.rememberMe && response.user) {
-            // ya el servicio guarda token si backend lo retorna
-            console.log('Guardando sesión persistente (rememberMe)');
+          // Guardar token en localStorage
+          if (response.user) {
+            console.log('Usuario autenticado:', response.user);
           }
         } else {
           this.mensaje = '❌ Error: ' + response.mensaje;
@@ -79,8 +79,13 @@ export class Login implements OnInit {
   }
 
   register() {
-    if (!this.email || !this.password) {
+    if (!this.name || !this.email || !this.password) {
       this.mensaje = '⚠️ Por favor completa todos los campos';
+      return;
+    }
+
+    if (!this.agreeTerms) {
+      this.mensaje = '⚠️ Debes aceptar los términos y condiciones';
       return;
     }
 
@@ -99,6 +104,24 @@ export class Login implements OnInit {
         this.mensaje = '❌ Error al registrar: ' + (error?.message || error);
       }
     });
+  }
+
+  loginWithGoogle() {
+    this.mensaje = 'Iniciando sesión con Google...';
+    // Implementar OAuth de Google aquí
+    console.log('Login con Google');
+  }
+
+  loginWithApple() {
+    this.mensaje = 'Iniciando sesión con Apple...';
+    // Implementar OAuth de Apple aquí
+    console.log('Login con Apple');
+  }
+
+  goToSignIn() {
+    this.mensaje = 'Redirigiendo a inicio de sesión...';
+    // Navegar a la página de login si esta es signup
+    console.log('Ir a Sign In');
   }
 
   forgotPassword() {

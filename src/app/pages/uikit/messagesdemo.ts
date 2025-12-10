@@ -50,7 +50,7 @@ import { ToastModule } from 'primeng/toast';
             </div>
         </div>
     `,
-    providers: [MessageService]
+    // providers: [MessageService]
 })
 export class MessagesDemo {
     msgs: ToastMessageOptions[] | null = [];

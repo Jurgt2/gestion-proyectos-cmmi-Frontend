@@ -31,7 +31,7 @@ import { ToastModule } from 'primeng/toast';
                 </div>
             </div>
         </div>`,
-    providers: [MessageService]
+    // providers: [MessageService]
 })
 export class FileDemo {
     uploadedFiles: any[] = [];

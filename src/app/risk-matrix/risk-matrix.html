@@ -1,116 +1,127 @@
 
 <p-toast></p-toast>
-<div class="risk-matrix-excel-template">
-  <div class="rmx-header-section">
-  <img src="assets/images/mi-logo/logo.png" alt="Logo Quality & Knowledge" class="rmx-logo" />
-    <div class="rmx-title-container">
-      <h1 class="rmx-main-title">MATRIZ DE RIESGOS</h1>
-      <div class="rmx-subtitle">Control de Cambios</div>
+<div class="excel-style-container">
+  
+  <!-- HEADER CON LOGO Y TÍTULO -->
+  <div class="excel-header">
+    <div class="logo-section">
+      <div class="logo-placeholder">LOGO</div>
+      <div class="company-name">QUALITY & KNOWLEDGE</div>
     </div>
-    <div class="export-buttons-top">
-      <button class="btn-save" (click)="saveMatrix()" [disabled]="isSaving">
-        <span>💾</span> {{ isSaving ? 'Guardando...' : 'Guardar' }}
-      </button>
-      <button class="btn-excel" (click)="exportExcel()">
-        <span>📊</span> Exportar Excel
-      </button>
-      <button class="btn-pdf" (click)="exportPDF()">
-        <span>📄</span> Exportar PDF
-      </button>
-      <span class="save-message" *ngIf="saveMessage">{{ saveMessage }}</span>
+    <h1 class="excel-title">MATRIZ DE RIESGOS</h1>
+  </div>
+
+  <!-- INFORMACIÓN DEL PROYECTO -->
+  <table class="excel-info-table">
+    <tr>
+      <td class="info-label">Nombre del Proyecto/Aplicativo:</td>
+      <td class="info-value">
+        <input 
+          type="text" 
+          [(ngModel)]="matrixData.nombreProyecto" 
+          placeholder="Escribe el nombre del proyecto aquí..."
+          (input)="onInputChange()"
+          class="project-input" />
+      </td>
+    </tr>
+    <tr>
+      <td class="info-label">Clave del Proyecto (si aplica):</td>
+      <td class="info-value">
+        <input 
+          type="text" 
+          [(ngModel)]="matrixData.claveProyecto" 
+          placeholder="Escribe la clave del proyecto..."
+          (input)="onInputChange()"
+          class="project-input" />
+      </td>
+    </tr>
+    <tr>
+      <td class="info-label">Fecha de creación:</td>
+      <td class="info-value"><input type="date" [(ngModel)]="matrixData.fechaCreacion" class="project-input" /></td>
+    </tr>
+    <tr>
+      <td class="info-label">Última actualización:</td>
+      <td class="info-value"><input type="date" [(ngModel)]="matrixData.ultimaActualizacion" class="project-input" /></td>
+    </tr>
+  </table>
+  
+  <!-- Indicador visual de lo que se va a guardar -->
+  <div *ngIf="matrixData.nombreProyecto || matrixData.claveProyecto" class="preview-box">
+    <strong>📝 Vista previa de lo que se guardará:</strong>
+    <div class="preview-content">
+      <div *ngIf="matrixData.nombreProyecto" class="preview-item">
+        <span class="preview-label">Nombre:</span> 
+        <span class="preview-value">"{{ matrixData.nombreProyecto }}"</span>
+      </div>
+      <div *ngIf="matrixData.claveProyecto" class="preview-item">
+        <span class="preview-label">Clave:</span> 
+        <span class="preview-value">"{{ matrixData.claveProyecto }}"</span>
+      </div>
     </div>
   </div>
 
-  <div class="excel-matrix-section">
-    <table class="excel-matrix-table">
+  <!-- BOTONES DE EXPORTACIÓN -->
+  <div class="action-buttons">
+    <button class="btn-new" (click)="nuevoProyecto()" title="Limpiar formulario para crear nuevo proyecto">
+      <span>➕</span> Nuevo Proyecto
+    </button>
+    <button class="btn-save" (click)="guardarMatriz()" [disabled]="isSaving">
+      <span>💾</span> {{ isSaving ? 'Guardando...' : 'Guardar Proyecto' }}
+    </button>
+    <button class="btn-excel" (click)="exportExcel()">
+      <span>📊</span> Exportar Excel
+    </button>
+    <button class="btn-pdf" (click)="exportPDF()">
+      <span>📄</span> Exportar PDF
+    </button>
+  </div>
+  
+  <!-- Mensaje de estado del guardado -->
+  <div *ngIf="saveMessage" class="save-message" [class.success]="saveMessage.includes('✅')" [class.error]="saveMessage.includes('❌')">
+    {{ saveMessage }}
+  </div>
+
+  <!-- CONTROL DE CAMBIOS -->
+  <h2 class="section-title">Control de Cambios</h2>
+  <table class="excel-control-table">
+    <thead>
       <tr>
-        <td class="label-cell">Nombre del Proyecto/Aplicativo:</td>
-        <td class="value-cell">
-          <input *ngIf="matrixData" type="text" class="editable-input" [(ngModel)]="matrixData.proyecto" placeholder="Nombre del Proyecto" />
-        </td>
-        <td class="label-cell">Clave del Proyecto:</td>
-        <td class="value-cell">
-          <input *ngIf="matrixData" type="text" class="editable-input" [(ngModel)]="matrixData.clave" placeholder="PRJ-001" />
+        <th style="width: 10%;">Versión</th>
+        <th style="width: 15%;">Fecha</th>
+        <th style="width: 40%;">Descripción</th>
+        <th style="width: 15%;">Autor</th>
+        <th style="width: 15%;">Aprobó</th>
+        <th style="width: 5%;">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let cambio of matrixData?.controlCambios; let i = index">
+        <td><input type="text" [(ngModel)]="cambio.version" placeholder="Ej: 1.0, 2.0, 3.0" /></td>
+        <td><input type="date" [(ngModel)]="cambio.fecha" placeholder="dd/mm/yyyy" /></td>
+        <td><input type="text" [(ngModel)]="cambio.descripcion" placeholder="Describe los cambios realizados en esta versión" /></td>
+        <td><input type="text" [(ngModel)]="cambio.autor" placeholder="Nombre completo del autor" /></td>
+        <td><input type="text" [(ngModel)]="cambio.aprobo" placeholder="Nombre de quien aprobó" /></td>
+        <td class="action-cell">
+          <button class="btn-delete-mini" (click)="deleteControlCambio(i)" title="Eliminar">🗑️</button>
         </td>
       </tr>
-      <tr>
-        <td class="label-cell">Fecha de creación:</td>
-        <td class="value-cell">
-          <input *ngIf="matrixData" type="date" class="date-input" [(ngModel)]="matrixData.fechaInicio" />
-        </td>
-        <td class="label-cell">Última actualización:</td>
-        <td class="value-cell">
-          <input *ngIf="matrixData" type="date" class="date-input" [(ngModel)]="matrixData.fechaFin" />
+      <!-- Fila de ayuda cuando no hay cambios -->
+      <tr *ngIf="!matrixData?.controlCambios || matrixData.controlCambios.length === 0" class="empty-row">
+        <td colspan="6" style="text-align: center; padding: 20px; color: #64748b; font-style: italic;">
+          No hay cambios registrados. Haz clic en "➕ Agregar Fila" para comenzar.
         </td>
       </tr>
-    </table>
+    </tbody>
+  </table>
+  
+  <!-- Botones de Control de Cambios -->
+  <div class="control-cambios-actions">
+    <button class="btn-add-row" (click)="addControlCambio()">
+      ➕ Agregar Fila
+    </button>
+    <button class="btn-save-control" (click)="guardarTodosCambios()" [disabled]="isSaving">
+      <span>💾</span> {{ isSaving ? 'Guardando...' : 'Guardar Cambios' }}
+    </button>
   </div>
 
-  <div class="control-changes-section">
-    <div class="section-header">
-      <b>Control de Cambios</b>
-      <button class="btn-add-row" (click)="addControlCambio()" title="Agregar nueva fila">
-        ➕ Agregar Fila
-      </button>
-    </div>
-    <table class="rmx-control-table">
-      <thead>
-        <tr>
-          <th>Versión</th>
-          <th>Fecha</th>
-          <th>Descripción</th>
-          <th>Autor</th>
-          <th>Aprobó</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let cambio of matrixData?.controlCambios; let i = index">
-          <td><input type="text" class="table-input" [(ngModel)]="cambio.version" placeholder="1.0" /></td>
-          <td><input type="date" class="table-input table-date" [(ngModel)]="cambio.fecha" /></td>
-          <td><input type="text" class="table-input" [(ngModel)]="cambio.descripcion" placeholder="Descripción del cambio" /></td>
-          <td><input type="text" class="table-input" [(ngModel)]="cambio.autor" placeholder="Nombre Autor" /></td>
-          <td><input type="text" class="table-input" [(ngModel)]="cambio.aprobo" placeholder="Nombre Aprobador" /></td>
-          <td class="action-cell">
-            <button class="btn-save-row" (click)="saveControlCambio(i)" title="Guardar cambios">
-              💾
-            </button>
-            <button class="btn-delete-row" (click)="deleteControlCambio(i)" title="Eliminar fila">
-              🗑️
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="stats-cards">
-    <div class="stat-card blue-card">
-      <div class="stat-label">Total de Riesgos</div>
-      <div class="stat-subtitle">Total identificados</div>
-      <input *ngIf="matrixData" type="number" [(ngModel)]="matrixData.totalRiesgos" class="stat-number-input" min="0" />
-    </div>
-    <div class="stat-card red-card">
-      <div class="stat-label">Críticos</div>
-      <div class="stat-subtitle">Sin mitigar</div>
-      <input *ngIf="matrixData" type="number" [(ngModel)]="matrixData.criticos" class="stat-number-input" min="0" />
-    </div>
-    <div class="stat-card green-card">
-      <div class="stat-label">Mitigados</div>
-      <div class="stat-subtitle">Controlados</div>
-      <input *ngIf="matrixData" type="number" [(ngModel)]="matrixData.mitigados" class="stat-number-input" min="0" />
-    </div>
-    <div class="stat-card cyan-card">
-      <div class="stat-label">Cambios Recientes</div>
-      <div class="stat-subtitle">Últimos 30 días</div>
-      <input *ngIf="matrixData" type="number" [(ngModel)]="matrixData.cambiosRecientes" class="stat-number-input" min="0" />
-    </div>
-  </div>
-
-  <div class="risks-list-section">
-    <div class="section-header">Listado Completo de Riesgos</div>
-    <div class="risks-placeholder">
-      <p>Aquí se mostrará el listado detallado de riesgos identificados...</p>
-    </div>
-  </div>
 </div>

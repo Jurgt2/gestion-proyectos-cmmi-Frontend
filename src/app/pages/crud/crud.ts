@@ -208,7 +208,7 @@ interface ExportColumn {
 
         <p-confirmdialog [style]="{ width: '450px' }" />
     `,
-    providers: [MessageService, ProductService, ConfirmationService]
+    providers: [ProductService, ConfirmationService]
 })
 export class Crud implements OnInit {
     productDialog: boolean = false;

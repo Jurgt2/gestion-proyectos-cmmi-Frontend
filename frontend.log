@@ -1,0 +1,36 @@
+
+Warning: This is a simple server for use in testing or debugging Angular applications
+locally. It hasn't been reviewed for security issues.
+
+Binding this server to an open connection can result in compromising your application or
+computer. Using a different host than the one passed to the "--host" flag might result in
+websocket connection issues. You might need to use "--disable-host-check" if that's the
+case.
+    
+❯ Building...
+✔ Building...
+Initial chunk files | Names               |  Raw size
+styles.css          | styles              |  95.91 kB | 
+main.js             | main                |  60.09 kB | 
+chunk-VZU6HK3P.js   | -                   |  27.84 kB | 
+chunk-CZJLB7T5.js   | -                   |   1.08 kB | 
+polyfills.js        | polyfills           |  95 bytes | 
+
+                    | Initial total       | 185.01 kB
+
+Lazy chunk files    | Names               |  Raw size
+chunk-PNYNZP6N.js   | risk-matrix         | 104.60 kB | 
+chunk-A2MWNBJ5.js   | risk-identification |  84.78 kB | 
+chunk-YML5CQQ3.js   | -                   |  25.52 kB | 
+chunk-6LA2Y5KY.js   | auth-routes         |  18.91 kB | 
+chunk-UFHJLVFF.js   | -                   |   3.03 kB | 
+chunk-ZDJ3GTZ7.js   | -                   | 187 bytes | 
+chunk-UC3RK67L.js   | login               | 170 bytes | 
+
+Application bundle generation complete. [1.428 seconds]
+
+Watch mode enabled. Watching for file changes...
+NOTE: Raw file sizes do not reflect development server per-request transformations.
+  ➜  Local:   http://localhost:4200/
+  ➜  Network: http://192.168.100.39:4200/
+  ➜  press h + enter to show help

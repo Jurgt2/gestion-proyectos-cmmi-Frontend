@@ -17,7 +17,7 @@ import autoTable from 'jspdf-autotable';
   selector: 'app-usuarios',
   templateUrl: './usuarios.html',
   styleUrls: ['./usuarios.scss'],
-  providers: [MessageService],
+  // providers: [MessageService],
   standalone: true,
   imports: [
     CommonModule,

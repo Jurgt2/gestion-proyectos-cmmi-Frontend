@@ -1,5 +1,9 @@
 export interface RiskMatrix {
   id?: number;
+  nombreProyecto: string;
+  claveProyecto: string;
+  fechaCreacion: string;
+  ultimaActualizacion: string;
   proyecto: string;
   clave: string;
   responsable: string;

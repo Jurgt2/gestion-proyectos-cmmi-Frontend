@@ -5,11 +5,14 @@
       <div class="logo-placeholder">Q&K</div>
     </div>
     <div class="title-section">
-      <h1 class="main-title">MATRIZ DE RIESGOS Y OPORTUNIDADES DEL PORTAFOLIO DE PROYECTOS DE Q&K</h1>
+      <h1 class="main-title">REGISTRO DE RIESGOS Y OPORTUNIDADES DEL PORTAFOLIO DE PROYECTOS DE Q&K</h1>
     </div>
     <div class="actions-section">
-      <button class="btn-save" (click)="saveData()">
-        <span>💾</span> Guardar
+      <button class="btn-add" (click)="addRisk()">
+        <span>➕</span> Agregar Fila
+      </button>
+      <button class="btn-save" (click)="guardarTodosRiesgos()">
+        <span>💾</span> Guardar Todo
       </button>
       <button class="btn-excel" (click)="exportExcel()">
         <span>📊</span> Excel
@@ -17,13 +20,10 @@
       <button class="btn-pdf" (click)="exportPDF()">
         <span>📄</span> PDF
       </button>
-      <button class="btn-add" (click)="addRisk()">
-        <span>➕</span> Agregar
-      </button>
     </div>
   </div>
 
-  <!-- Tabla de Riesgos Completa -->
+  <!-- Tabla Estilo Excel -->
   <div class="risks-table-wrapper">
     <table class="risks-table">
       <thead>
@@ -31,9 +31,9 @@
           <!-- Identificación y Análisis de Riesgos -->
           <th colspan="5" class="section-header section-identificacion">Identificación y Análisis de Riesgos</th>
           <!-- Análisis Cualitativo -->
-          <th colspan="2" class="section-header section-cualitativo">Análisis Cualitativo</th>
-          <!-- Monitoreo de Riesgos -->
-          <th colspan="8" class="section-header section-monitoreo">Monitoreo de Riesgos</th>
+          <th colspan="5" class="section-header section-cualitativo">Análisis Cualitativo</th>
+          <!-- Monitoreo y Seguimiento -->
+          <th colspan="8" class="section-header section-monitoreo">Monitoreo y Seguimiento</th>
           <!-- Acciones -->
           <th rowspan="2" class="col-actions">Acciones</th>
         </tr>
@@ -41,59 +41,166 @@
           <!-- Identificación -->
           <th class="col-id">ID</th>
           <th class="col-tipo">Tipo</th>
-          <th class="col-proyecto">ID de Proyecto</th>
+          <th class="col-proyecto">ID del Proyecto</th>
           <th class="col-categoria">Categoría</th>
           <th class="col-descripcion">Descripción del Riesgo</th>
           
           <!-- Análisis Cualitativo -->
-          <th class="col-impacto">Nivel de Impacto</th>
-          <th class="col-oportunidades">Oportunidades</th>
+          <th class="col-consecuencia">Consecuencia</th>
+          <th class="col-identificado">Identificado por</th>
+          <th class="col-fecha-registro">Fecha de Registro</th>
+          <th class="col-impacto">Nivel de Impacto Total</th>
+          <th class="col-probabilidad">Probabilidad de Ocurrencia</th>
           
           <!-- Monitoreo -->
-          <th class="col-evaluacion">Evaluación de Riesgo</th>
+          <th class="col-evaluacion">Evaluación de Riesgos</th>
           <th class="col-estrategia">Estrategia del Riesgo</th>
+          <th class="col-respuesta">Respuesta al Riesgo</th>
           <th class="col-responsable">Responsable</th>
-          <th class="col-estado">Estado</th>
-          <th class="col-fecha">Fecha Inicio</th>
-          <th class="col-fecha">Fecha Cierre</th>
-          <th class="col-escalado">Escalado</th>
-          <th class="col-verificacion">Siguiente verificación</th>
+          <th class="col-fecha-limite">Fecha Límite</th>
+          <th class="col-estatus">Estatus</th>
+          <th class="col-verificacion">Siguiente Verificación</th>
+          <th class="col-observaciones">Observaciones (Opcional)</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let risk of risks; let i = index" [class.row-even]="i % 2 === 0" [class.row-odd]="i % 2 !== 0">
-          <!-- Identificación -->
-          <td class="cell-id">{{ risk.id }}</td>
-          <td><input type="text" [(ngModel)]="risk.tipo" class="input-cell" placeholder="Tipo" /></td>
-          <td><input type="text" [(ngModel)]="risk.idProyecto" class="input-cell" placeholder="ID" /></td>
-          <td><input type="text" [(ngModel)]="risk.categoria" class="input-cell" placeholder="Categoría" /></td>
-          <td><input type="text" [(ngModel)]="risk.descripcion" class="input-cell input-wide" placeholder="Descripción..." /></td>
-          
-          <!-- Análisis Cualitativo -->
-          <td><input type="text" [(ngModel)]="risk.nivelImpacto" class="input-cell" placeholder="Nivel" /></td>
-          <td><input type="text" [(ngModel)]="risk.oportunidades" class="input-cell input-wide" placeholder="Oportunidades..." /></td>
-          
-          <!-- Monitoreo -->
-          <td><input type="text" [(ngModel)]="risk.evaluacionRiesgo" class="input-cell" placeholder="Evaluación" /></td>
-          <td><input type="text" [(ngModel)]="risk.estrategiaRiesgo" class="input-cell input-wide" placeholder="Estrategia..." /></td>
-          <td><input type="text" [(ngModel)]="risk.responsable" class="input-cell" placeholder="Responsable" /></td>
-          <td><input type="text" [(ngModel)]="risk.estado" class="input-cell" placeholder="Estado" /></td>
-          <td><input type="date" [(ngModel)]="risk.fechaInicio" class="input-cell input-date" /></td>
-          <td><input type="date" [(ngModel)]="risk.fechaCierre" class="input-cell input-date" /></td>
-          <td><input type="text" [(ngModel)]="risk.escalado" class="input-cell" placeholder="Escalado" /></td>
-          <td><input type="date" [(ngModel)]="risk.siguienteVerificacion" class="input-cell input-date" /></td>
-          
-          <!-- Acciones -->
-          <td class="cell-actions">
-            <button class="btn-delete" (click)="deleteRisk(i)" title="Eliminar fila">🗑️</button>
-          </td>
-        </tr>
+        @for (risk of risks; track $index; let i = $index) {
+          <tr [class.row-even]="i % 2 === 0" [class.row-odd]="i % 2 !== 0">
+            <!-- ID -->
+            <td class="cell-id">{{ risk.id }}</td>
+            
+            <!-- Tipo -->
+            <td>
+              <select [(ngModel)]="risk.tipo" class="input-cell">
+                <option value="">-</option>
+                @for (tipo of tiposRiesgo; track tipo) {
+                  <option [value]="tipo">{{ tipo }}</option>
+                }
+              </select>
+            </td>
+            
+            <!-- ID del Proyecto -->
+            <td>
+              <input type="text" [(ngModel)]="risk.idProyecto" class="input-cell" placeholder="ID" />
+            </td>
+            
+            <!-- Categoría -->
+            <td>
+              <select [(ngModel)]="risk.categoria" class="input-cell">
+                <option value="">-</option>
+                @for (cat of categorias; track cat) {
+                  <option [value]="cat">{{ cat }}</option>
+                }
+              </select>
+            </td>
+            
+            <!-- Descripción del Riesgo -->
+            <td>
+              <input type="text" [(ngModel)]="risk.descripcion" class="input-cell input-wide" placeholder="Descripción..." />
+            </td>
+            
+            <!-- Consecuencia -->
+            <td>
+              <input type="text" [(ngModel)]="risk.consecuencia" class="input-cell input-wide" placeholder="Consecuencia..." />
+            </td>
+            
+            <!-- Identificado por -->
+            <td>
+              <input type="text" [(ngModel)]="risk.identificadoPor" class="input-cell" placeholder="Nombre" />
+            </td>
+            
+            <!-- Fecha de Registro -->
+            <td>
+              <input type="date" [(ngModel)]="risk.fechaRegistro" class="input-cell input-date" />
+            </td>
+            
+            <!-- Nivel de Impacto Total -->
+            <td>
+              <select [(ngModel)]="risk.nivelImpactoTotal" class="input-cell">
+                <option value="">-</option>
+                @for (nivel of nivelesImpacto; track nivel) {
+                  <option [value]="nivel">{{ nivel }}</option>
+                }
+              </select>
+            </td>
+            
+            <!-- Probabilidad de Ocurrencia -->
+            <td>
+              <select [(ngModel)]="risk.probabilidadOcurrencia" class="input-cell">
+                <option value="">-</option>
+                @for (prob of probabilidadesOcurrencia; track prob) {
+                  <option [value]="prob">{{ prob }}</option>
+                }
+              </select>
+            </td>
+            
+            <!-- Evaluación de Riesgos -->
+            <td>
+              <input type="text" [(ngModel)]="risk.evaluacionRiesgo" class="input-cell" placeholder="Evaluación" />
+            </td>
+            
+            <!-- Estrategia del Riesgo -->
+            <td>
+              <select [(ngModel)]="risk.estrategiaRiesgo" class="input-cell">
+                <option value="">-</option>
+                @for (estrategia of estrategias; track estrategia) {
+                  <option [value]="estrategia">{{ estrategia }}</option>
+                }
+              </select>
+            </td>
+            
+            <!-- Respuesta al Riesgo -->
+            <td>
+              <select [(ngModel)]="risk.respuestaRiesgo" class="input-cell">
+                <option value="">-</option>
+                @for (respuesta of respuestasRiesgo; track respuesta) {
+                  <option [value]="respuesta">{{ respuesta }}</option>
+                }
+              </select>
+            </td>
+            
+            <!-- Responsable -->
+            <td>
+              <input type="text" [(ngModel)]="risk.responsable" class="input-cell" placeholder="Responsable" />
+            </td>
+            
+            <!-- Fecha Límite -->
+            <td>
+              <input type="date" [(ngModel)]="risk.fechaLimite" class="input-cell input-date" />
+            </td>
+            
+            <!-- Estatus -->
+            <td>
+              <select [(ngModel)]="risk.estatus" class="input-cell">
+                <option value="">-</option>
+                @for (estatus of estatusOpciones; track estatus) {
+                  <option [value]="estatus">{{ estatus }}</option>
+                }
+              </select>
+            </td>
+            
+            <!-- Siguiente Verificación -->
+            <td>
+              <input type="date" [(ngModel)]="risk.siguienteVerificacion" class="input-cell input-date" />
+            </td>
+            
+            <!-- Observaciones (Opcional) -->
+            <td>
+              <textarea [(ngModel)]="risk.observaciones" class="input-cell input-wide" placeholder="Observaciones..." rows="2"></textarea>
+            </td>
+            
+            <!-- Acciones -->
+            <td class="cell-actions">
+              <button class="btn-delete" (click)="deleteRisk(i)" title="Eliminar fila">🗑️</button>
+            </td>
+          </tr>
+        }
       </tbody>
     </table>
   </div>
 
   <!-- Footer Info -->
   <div class="footer-info">
-    <p>Total de riesgos registrados: <strong>{{ risks.length }}</strong></p>
+    <p>Total de riesgos: <strong>{{ risks.length }}</strong></p>
   </div>
 </div>
